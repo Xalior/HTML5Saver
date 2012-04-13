@@ -1,0 +1,29 @@
+#!/usr/bin/python
+
+import argparse, os
+from PIL import Image
+import json
+
+parser = argparse.ArgumentParser(description =
+    'Convert a folder of images into a JSON object (for us with HTML5Savers).')
+parser.add_argument('imagedir', metavar='<dirname>', type=str, 
+                   help='folderpath to import')
+
+args = parser.parse_args()
+print args
+
+images = []
+path = args.imagedir
+listing = os.listdir(path)
+for infile in listing:
+    try:
+        im=Image.open(os.path.join(path,infile))
+        thisImage = {}
+        thisImage['name'] = infile
+        images.append(thisImage)
+        print "current file is: " + infile
+    except IOError:
+        # filename not an image file
+        print "not an image: "+ infile
+
+print "images="+json.dumps(images)+";"
