@@ -10,7 +10,6 @@ parser.add_argument('imagedir', metavar='<dirname>', type=str,
                    help='folderpath to import')
 
 args = parser.parse_args()
-print args
 
 images = []
 path = args.imagedir
@@ -21,9 +20,8 @@ for infile in listing:
         thisImage = {}
         thisImage['name'] = infile
         images.append(thisImage)
-        print "current file is: " + infile
     except IOError:
         # filename not an image file
-        print "not an image: "+ infile
+        pass
 
 print "images="+json.dumps(images)+";"
