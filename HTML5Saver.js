@@ -1,15 +1,19 @@
 var HTML5Saver = djsex.Class.extend({
-	init: function(container,options){
+    init: function(container,options){
         // instance
         this.container = container ? container : document.getElementsByTagName('body')[0];
 
-        // Settings
+        // Clock
+        this.systick = new Date();
+
+        // Default Options
         this.speed = 10;
 
-        this.localvars(container,options);
+        // Local(this screensaver specific) Variables
+        this.localinit(options);
     },
 
-    localvars: function(container,options) {
+    localinit: function(options) {
         // state
         this.red = 255;
         this.redDir = 1;
@@ -17,12 +21,11 @@ var HTML5Saver = djsex.Class.extend({
         this.greenDir = 1;
         this.blue = 255;
         this.blueDir = 1;
-        this.last = 0;
     },
 
     render: function(now) {
-        if(now>this.last+this.speed) {
-            this.last = now;
+        if(now>this.systick+this.speed) {
+            this.systick = now;
             this.draw();
         }
 	},
