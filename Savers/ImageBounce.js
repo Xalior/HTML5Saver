@@ -13,7 +13,7 @@ var ImageBounce = HTML5Saver.extend({
         this.bouncer.id = "imagebouncer";
 
         if(this.images) {
-            this.bouncer.src=this.images[djsex.math.randomint(0,this.images.length)].name;
+            this.bouncer.src=this.images[djsex.math.randomint(0,this.images.length-1)].name;
         } else
             this.bouncer.src=this.logo();
         this.container.appendChild(this.bouncer);
@@ -26,8 +26,8 @@ var ImageBounce = HTML5Saver.extend({
     css: function() {
         return "            \n\
 img#imagebouncer {          \n\
-    max-width: "+this.container.offsetHeight/3+"px;       \n\
-    max-height: "+this.container.offsetHeight/3+"px;      \n\
+    max-width: 128px;       \n\
+    max-height: 128px;      \n\
     height: auto;           \n\
     width: auto;            \n\
     position: relative;     \n\
@@ -44,10 +44,15 @@ img#imagebouncer {          \n\
         if((this.textY+this.bouncer.offsetHeight>=this.container.offsetHeight) || 
            (this.textY<0)) 
             { this.dirY=djsex.math.invert(this.dirY); bounced = 1;}
+        if(this.textY<0)
+            this.textY=0;
+        if(this.textX<0)
+            this.textX=0;
+
         this.textY=this.textY+(1*this.dirY);
         this.textX=this.textX+(1*this.dirX);
         if(bounced && this.images)
-            this.bouncer.src=this.images[djsex.math.randomint(0,this.images.length)].name;
+            this.bouncer.src=this.images[djsex.math.randomint(0,this.images.length-1)].name;
 
         this.bouncer.style.top = this.textY+'px';
         this.bouncer.style.left = this.textX+'px';
