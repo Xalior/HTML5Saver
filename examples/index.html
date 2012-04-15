@@ -10,5 +10,20 @@
  <body>
   <div id="container" style="width:900px; height: 600px;">.</div>
   <div id="debug" style="font-face: fixed-width;"><h1>DEBUG</h1></div>
+<script>
+var screensaver;
+
+function init() {
+//    screensaver = new HTML5Saver(document.getElementById('container'));
+    screensaver = new HTML5Saver();
+    loop();
+}
+
+function loop(now) {
+    requestAnimationFrame(loop);
+    screensaver.render(now);
+}
+window.onload = init;
+</script>
  </body>
 </html>
