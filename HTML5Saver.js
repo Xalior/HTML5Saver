@@ -11,7 +11,10 @@ var HTML5Saver = djsex.Class.extend({
 
         // Local(this screensaver specific) Variables
         this.localinit(options);
+        djsex.css.create(this.css);
     },
+
+    css: "",
 
     localinit: function(options) {
         // state
