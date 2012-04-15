@@ -4,7 +4,7 @@ var HTML5Saver = djsex.Class.extend({
         this.container = container ? container : document.getElementsByTagName('body')[0];
 
         // Clock
-        this.systick = new Date();
+        this.systick = new Date().getTime();
 
         // Default Options
         this.speed = 10;
