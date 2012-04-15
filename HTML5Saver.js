@@ -3,6 +3,13 @@ var HTML5Saver = djsex.Class.extend({
         // instance
         this.container = container ? container : document.getElementsByTagName('body')[0];
 
+        // Settings
+        this.speed = 10;
+
+        this.localvars(container,options);
+    },
+
+    localvars: function(container,options) {
         // state
         this.red = 255;
         this.redDir = 1;
@@ -11,10 +18,7 @@ var HTML5Saver = djsex.Class.extend({
         this.blue = 255;
         this.blueDir = 1;
         this.last = 0;
-
-        // Settings
-        this.speed = 10;
-	},
+    },
 
     render: function(now) {
         if(now>this.last+this.speed) {
