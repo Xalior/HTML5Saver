@@ -5,7 +5,6 @@
   <script src="../djsex/Math.js"></script>
   <script src="../djsex/Anim.js"></script>
   <script src="../HTML5Saver.js"></script>
-  <script src="D.json"></script>
  </head>
  <body>
   <div id="container" style="width:900px; height: 600px;">.</div>
@@ -14,8 +13,7 @@
 var screensaver;
 
 function init() {
-//    screensaver = new HTML5Saver(document.getElementById('container'));
-    screensaver = new HTML5Saver();
+    screensaver = new HTML5Saver(document.getElementById('container'));
     loop();
 }
 
