@@ -17,7 +17,8 @@ var TextBounce = HTML5Saver.extend({
         this.bouncer.style.left = this.textY+'px';
     },
 
-    css: "                  \n\
+    css: function() {
+    return "                  \n\
 span#textbouncer {          \n\
     height: auto;           \n\
     width: auto;            \n\
@@ -25,7 +26,8 @@ span#textbouncer {          \n\
     text-shadow: 0 6px 4px #33F, -3px -5px 4px #F00, 3px -5px 4px #0F0; \n\
     font-size:  24px;       \n\
     font-family: sans-serif;\n\
-}",
+}";
+    },
 
     draw: function() {
         this.bouncer.innerHTML = this.string ? this.string : new Date();
