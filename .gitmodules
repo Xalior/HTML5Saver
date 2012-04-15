@@ -1,0 +1,3 @@
+[submodule "djsex"]
+	path = djsex
+	url = git@github.com:Xalior/djsex.git
