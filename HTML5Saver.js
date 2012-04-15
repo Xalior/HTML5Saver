@@ -39,17 +39,17 @@ var HTML5Saver = djsex.Class.extend({
             break;
         case 1:     // red
             if((this.red<=0) || (this.red>=255))
-                this.redDir = this.redDir * (-1);
+                this.redDir = djsex.math.invert(this.redDir);
             this.red = this.red + this.redDir;
             break;
         case 2:     // green
             if((this.green<0) || (this.green>255))
-                this.greenDir = this.greenDir * (-1);
+                this.greenDir = djsex.math.invert(this.greenDir);
             this.green = this.green + this.greenDir;
             break;
         case 3:     // blue
             if((this.blue<0) || (this.blue>255))
-                this.blueDir = this.blueDir * (-1);
+                this.blueDir = djsex.math.invert(this.blueDir);
             this.blue = this.blue + this.blueDir;
             break;
         }
