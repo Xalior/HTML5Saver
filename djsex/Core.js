@@ -1,13 +1,16 @@
-/* Simple 'Class' Based JavaScript Inheritance
+/* Simple 'Class' style JavaScript Inheritance
  * Based upon (MIT Licensed) code by John Resig http://ejohn.org/
  */
+
+var djsex = function(){};
+
 (function(){
 	var initializing = false, fnTest = /xyz/.test(function(){xyz;}) ? /\b_super\b/ : /.*/;
 	// The base Class implementation (does nothing)
-	this.Class = function(){};
+    djsex.Class = function(){};
 
 	// Create a new Class that inherits from this class
-	Class.extend = function(prop) {
+	djsex.Class.extend = function(prop) {
 		var _super = this.prototype;
 
 		// Instantiate a base class (but only create the instance,
@@ -41,21 +44,21 @@
 		}
 
 		// The dummy class constructor
-		function Class() {
+		djsex.Class = function() {
 			// All construction is actually done in the init method
 			if ( !initializing && this.init )
 				this.init.apply(this, arguments);
 		}
 
 		// Populate our constructed prototype object
-		Class.prototype = prototype;
+		djsex.Class.prototype = prototype;
 
 		// Enforce the constructor to be what we expect
-		Class.prototype.constructor = Class;
+		djsex.Class.prototype.constructor = djsex.Class;
 
 		// And make this class extendable
-		Class.extend = arguments.callee;
+		djsex.Class.extend = arguments.callee;
 
-		return Class;
+		return djsex.Class;
 	};
 })();

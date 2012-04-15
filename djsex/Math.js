@@ -7,6 +7,19 @@
  * D. Rimron <darran@xalior.com>
  */
 
-function randomint(floor, ceil) {
-    return Math.floor((Math.random()*ceil)+floor);
-}
+djsex.math = {
+    randomint: function(floor, ceil) {
+        return Math.floor((Math.random()*ceil)+floor);
+    },
+
+    decimalToHex: function(d, padding) {
+        var hex = Number(d).toString(16);
+        padding = typeof (padding) === "undefined" || padding === null ? padding = 2 : padding;
+
+        while (hex.length < padding) {
+            hex = "0" + hex;
+        }
+
+        return hex;
+    },
+};
