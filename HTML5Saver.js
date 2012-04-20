@@ -29,7 +29,7 @@ var HTML5Saver = djsex.Class.extend({
     },
 
     render: function(now) {
-        if(now>this.systick+(this.speed*16.66666667) {
+        if(now>this.systick+(this.speed*16.66666667)) {
             this.systick = now;
             this.draw();
         }
