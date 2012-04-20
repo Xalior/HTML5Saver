@@ -6,8 +6,8 @@ var HTML5Saver = djsex.Class.extend({
         // Clock
         this.systick = new Date().getTime();
 
-        // Default Options
-        this.speed = 10;
+        // Default Options 
+        this.speed = 0;
 
         // Local(this screensaver specific) Variables
         this.localinit(options);
@@ -29,7 +29,7 @@ var HTML5Saver = djsex.Class.extend({
     },
 
     render: function(now) {
-        if(now>this.systick+this.speed) {
+        if(now>this.systick+(this.speed*16.66666667) {
             this.systick = now;
             this.draw();
         }
