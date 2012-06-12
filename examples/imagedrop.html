@@ -1,0 +1,34 @@
+<html>
+ <head>
+  <title>HTML5Saver</title>
+  <script src="../djsex/Core.js"></script>
+  <script src="../djsex/CSS.js"></script>
+  <script src="../djsex/Math.js"></script>
+  <script src="../djsex/Anim.js"></script>
+  <script src="../HTML5Saver.js"></script>
+  <script src="../vendor/kinetic-v3.9.3.js"></script>
+  <script src="../Savers/ImageDrop.js"></script>
+  <script src="D.json"></script>
+ </head>
+ <body>
+  <!--
+  <div id="container" style="width:900px; height: 600px; overflow: hidden; background-color: black; color: white;"></div>
+  <div id="debug" style="font-face: fixed-width;"><h1>DEBUG</h1></div>
+  -->
+<script>
+var screensaver;
+
+function init() {
+    //screensaver = new ImageDrop(document.getElementById('container'),{ images: images});
+    screensaver = new ImageDrop(null,{ images: images});
+    loop();
+}
+
+function loop(now) {
+    screensaver.render(now);
+    requestAnimationFrame(loop);
+}
+window.onload = init;
+</script>
+ </body>
+</html>
