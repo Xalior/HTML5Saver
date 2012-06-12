@@ -1,19 +1,26 @@
 var ImageDrop = HTML5Saver.extend({
     localinit: function(options) {
+        console.log(options);
         this.speed = 2;
         this.imageCounter = 0;
         this.imageLimit = 64;
         this.imageHeight = 240;
         this.visibleImages = [];
         this.visibleImageHeight = this.imageHeight;
-        this.startSize = 1024;
-        this.endSize = 378;
+        // Floating point values representing multiplier for size...
+        this.startSize = 3;
+        this.endSize = 1;
 
         // Build a consistantly formatted image list.
         if (options && options.images)
             this.images = options.images;
         else
             this.images = [{name: this.logo()}];
+        // Build a prefix....
+        if (options && options.prefix)
+            this.prefix = options.prefix;
+        else
+            this.prefix = "";
         
         // and our drawing components
         this.stage = new Kinetic.Stage({
@@ -21,7 +28,7 @@ var ImageDrop = HTML5Saver.extend({
           width: this.container.offsetWidth,
           height: this.container.offsetHeight
         });
-
+        console.log(this.stage);
         this.layer = new Kinetic.Layer();
 
         // add the layer to the stage
@@ -38,7 +45,6 @@ var ImageDrop = HTML5Saver.extend({
         if(this.imageCounter>this.imageLimit)
             this.imageCounter = 0;
         this.imageCounter++;
-        djsex.log("Creating a new image at "+this.imageCounter);
         this.fallingImg = new Image();
         this.fallingImg.onload = (function() {
             if(this.fallingImg.src != this.lastImg)
@@ -54,9 +60,11 @@ var ImageDrop = HTML5Saver.extend({
                     x: djsex.math.randomint(0,this.stage.getWidth()),
                     y: djsex.math.randomint(0,this.stage.getHeight()),
                     image: this.fallingImg,
-                    width: 768,
-                    height: 768,
+                    width: this.fallingImg.width,
+                    height: this.fallingImg.height
                 });
+                console.log(this.fallingImg.width);
+                console.log(this.fallingImg.height);
                 // add the shape to the layer
                 this.layer.add(this.visibleImages[this.imageCounter]);
             }
@@ -65,15 +73,20 @@ var ImageDrop = HTML5Saver.extend({
             this.moveImage();
         }).bind(this);
             
-        this.fallingImg.src = this.images[djsex.math.randomint(0,this.images.length-1)].name;
+        this.fallingImg.src = this.prefix+this.images[djsex.math.randomint(0,this.images.length-1)].name;
+        
+        // Just in case, recalculate all this math, because the externals 'cripts could be rattled by some other APIsh ghoul....
+        this.changeSize = this.startSize - this.endSize;
+        
     },
 
     moveImage: function() {
-        this.visibleImages[this.imageCounter].setWidth(this.startSize+((this.endSize-this.startSize)/this.imageHeight)*this.visibleImageHeight);
-        this.visibleImages[this.imageCounter].setHeight(this.startSize+((this.endSize-this.startSize)/this.imageHeight)*this.visibleImageHeight);
+        sizeRatio = this.changeSize * ((this.imageHeight-this.visibleImageHeight)/this.imageHeight);
+        this.visibleImages[this.imageCounter].setWidth(this.fallingImg.width*(this.endSize+sizeRatio)+this.fallingHorizDrift);
+        this.visibleImages[this.imageCounter].setHeight(this.fallingImg.height*(this.endSize+sizeRatio)+this.fallingHorizDrift);
         this.visibleImages[this.imageCounter].setCenterOffset(this.visibleImages[this.imageCounter].getWidth()/2, this.visibleImages[this.imageCounter].getHeight()/2);
-        this.visibleImages[this.imageCounter].setWidth(this.visibleImages[this.imageCounter].getWidth()+this.fallingHorizDrift);
-        this.visibleImages[this.imageCounter].setHeight(this.visibleImages[this.imageCounter].getHeight()+this.fallingVertDrift);
+//        this.visibleImages[this.imageCounter].setWidth(this.visibleImages[this.imageCounter].getWidth()+this.fallingHorizDrift);
+//        this.visibleImages[this.imageCounter].setHeight(this.visibleImages[this.imageCounter].getHeight()+this.fallingVertDrift);
         this.visibleImages[this.imageCounter].setAlpha(this.visibleImageHeight/this.imageHeight);
         this.visibleImages[this.imageCounter].setRotationDeg((this.fallingSkewStart+((this.fallingSkewEnd-this.fallingSkewStart)/this.imageHeight)*(this.imageHeight-this.visibleImageHeight)));
         this.visibleImageHeight++;
